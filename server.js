@@ -1,6 +1,8 @@
 const express = require("express")
+const cors = require("cors")
 const dotenv = require("dotenv")
 const morgan = require("morgan")
+const errorHandler = require("./middlewares/error")
 require("colors")
 
 // Route files
@@ -14,6 +16,10 @@ require("./config/db")()
 // Initialize express app
 const app = express()
 
+// Initialize middlewares
+app.use(cors())
+app.use(express.json())
+
 // Port Number
 const PORT = process.env.PORT || 6000
 
@@ -26,6 +32,8 @@ if (process.env.NODE_ENV === "development") {
 
 // Mount routers
 app.use(`${baseURL}bootcamps`, bootcamps)
+
+app.use(errorHandler)
 
 const server = app.listen(PORT, () => {
   console.log(
