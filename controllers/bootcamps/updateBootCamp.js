@@ -1,5 +1,6 @@
 const asyncHandler = require("../../middlewares/async")
 const BootCamp = require("../../models/bootCamp/BootCamp")
+const ErrorResponse = require("../../utils/errorResponse")
 
 // @desc    Update BootCamp
 // @route   Post {baseUrl}bootcamps

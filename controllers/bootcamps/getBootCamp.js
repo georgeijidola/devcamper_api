@@ -7,8 +7,9 @@ const BootCamp = require("../../models/bootCamp/BootCamp")
 const ErrorResponse = require("../../utils/errorResponse")
 
 const getBootCamp = asyncHandler(async (req, res, next) => {
-  const bootCamp = await BootCamp.findById(req.params.id)
+  const bootCamp = await BootCamp.findById(req.params.id).populate("courses")
 
+  console.log(bootCamp.populated("courses"))
   if (!bootCamp) {
     return next(
       new ErrorResponse({

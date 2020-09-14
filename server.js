@@ -1,15 +1,18 @@
 const express = require("express")
 const cors = require("cors")
-const dotenv = require("dotenv")
+// const dotenv = require("dotenv")
 const morgan = require("morgan")
 const errorHandler = require("./middlewares/error")
+require("dotenv").config()
 require("colors")
 
 // Route files
 const bootcamps = require("./routes/bootcamps")
+const courses = require("./routes/courses")
 
 // Load env vars
-dotenv.config({ path: "./config/config.env" })
+// dotenv.config({ path: "./config/config.env" })
+
 // Load db
 require("./config/db")()
 
@@ -32,6 +35,7 @@ if (process.env.NODE_ENV === "development") {
 
 // Mount routers
 app.use(`${baseURL}bootcamps`, bootcamps)
+app.use(`${baseURL}courses`, courses)
 
 app.use(errorHandler)
 

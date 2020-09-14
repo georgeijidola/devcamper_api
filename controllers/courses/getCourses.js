@@ -1,11 +1,11 @@
 const asyncHandler = require("../../middlewares/async")
-// @desc    Get all bootcamps
-// @route   Get {baseUrl}bootcamps
+// @desc    Get all courses
+// @route   Get {baseUrl}courses
 // @access  Public
 
-const BootCamp = require("../../models/bootCamp/BootCamp")
+const Course = require("../../models/course/Course")
 
-const getBootCamps = asyncHandler(async (req, res, next) => {
+const getCourses = asyncHandler(async (req, res, next) => {
   let query
 
   // Copy req.query
@@ -27,7 +27,13 @@ const getBootCamps = asyncHandler(async (req, res, next) => {
   )
 
   // Finding resources
-  query = BootCamp.find(JSON.parse(queryString))
+  if (req.params.id) {
+    queryString = Object.assign(JSON.parse(queryString), {
+      bootCamp: req.params.id,
+    })
+  }
+
+  query = Course.find(req.params.id ? queryString : JSON.parse(queryString))
 
   // Select Fields
   if (req.query.select) {
@@ -50,12 +56,15 @@ const getBootCamps = asyncHandler(async (req, res, next) => {
   const limit = parseInt(req.query.limit) || 25
   const startIndex = (page - 1) * limit
   const endIndex = page * limit
-  const total = await BootCamp.countDocuments()
+  const total = await Course.countDocuments()
 
   query = query.skip(startIndex).limit(limit)
 
   // Executing query
-  const bootCamps = await query.populate("courses")
+  const courses = await query.populate({
+    path: "bootCamp",
+    select: "name description",
+  })
 
   // Pagination result
   const pagination = {}
@@ -76,10 +85,10 @@ const getBootCamps = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     error: false,
-    data: bootCamps,
-    count: bootCamps.length,
+    data: courses,
+    count: courses.length,
     pagination,
   })
 })
 
-module.exports = getBootCamps
+module.exports = getCourses
