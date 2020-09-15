@@ -21,7 +21,10 @@ const createCourse = asyncHandler(async (req, res, next) => {
     )
   }
 
-  const course = await Course.create(req.body)
+  const course = await Course.create({
+    user: req.user.id,
+    ...req.body,
+  })
 
   res.status(201).json({
     error: false,

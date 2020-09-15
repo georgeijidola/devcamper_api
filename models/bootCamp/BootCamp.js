@@ -117,7 +117,7 @@ const BootCampSchema = Schema(
     user: {
       type: Schema.ObjectId,
       ref: "User",
-      //   required: true,
+      required: true,
     },
 
     isDeleted: {

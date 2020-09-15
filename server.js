@@ -2,6 +2,7 @@ const path = require("path")
 const express = require("express")
 const cors = require("cors")
 const fileUpload = require("express-fileupload")
+const cookieParser = require("cookie-parser")
 const morgan = require("morgan")
 
 const errorHandler = require("./middlewares/error")
@@ -11,6 +12,7 @@ require("colors")
 // Route files
 const bootcamps = require("./routes/bootcamps")
 const courses = require("./routes/courses")
+const auth = require("./routes/auth")
 
 // Load env vars
 // dotenv.config({ path: "./config/config.env" })
@@ -23,13 +25,17 @@ const app = express()
 
 // Initialize middlewares
 app.use(cors())
+// Body Parser
 app.use(express.json())
+// File upload
 app.use(
   fileUpload({
     // useTempFiles: true,
     preserveExtension: true,
   })
 )
+// Cookie parser
+app.use(cookieParser())
 
 // Set static folder
 app.use(express.static(path.join(__dirname, "public")))
@@ -47,6 +53,7 @@ if (process.env.NODE_ENV === "development") {
 // Mount routers
 app.use(`${baseURL}bootcamps`, bootcamps)
 app.use(`${baseURL}courses`, courses)
+app.use(`${baseURL}auth`, auth)
 
 app.use(errorHandler)
 

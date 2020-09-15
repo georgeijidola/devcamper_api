@@ -17,17 +17,26 @@ const courseRouter = require("./courses")
 const results = require("../middlewares/results")
 const BootCamp = require("../models/bootCamp/BootCamp")
 
+const protect = require("../middlewares/auth/protect")
+const role = require("../middlewares/auth/role")
+
 router.use("/:id/courses", courseRouter)
 
 router
   .route("/")
   .get(results(BootCamp, ["courses"]), getBootCamps)
-  .post(createBootCamp)
+  .post(protect, role("publisher", "admin"), createBootCamp)
 
 router.route("/radius").get(getBootCampsInRadius)
 
-router.route("/:id/photo").put(bootCampPhotoUpload)
+router
+  .route("/:id/photo")
+  .put(protect, role("publisher", "admin"), bootCampPhotoUpload)
 
-router.route("/:id").get(getBootCamp).put(updateBootCamp).delete(deleteBootCamp)
+router
+  .route("/:id")
+  .get(getBootCamp)
+  .put(protect, role("publisher", "admin"), updateBootCamp)
+  .delete(protect, role("publisher", "admin"), deleteBootCamp)
 
 module.exports = router

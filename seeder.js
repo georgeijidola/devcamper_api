@@ -9,6 +9,7 @@ dotenv.config()
 // Load models
 const BootCamp = require("./models/bootCamp/BootCamp")
 const Course = require("./models/course/Course")
+const User = require("./models/user/User")
 
 // Connect to DB
 const connectDB = async () => {
@@ -44,6 +45,7 @@ const deleteData = async () => {
   try {
     await BootCamp.deleteMany()
     await Course.deleteMany()
+    await User.deleteMany()
 
     console.log(" Data destroyed... ".white.bgBrightRed.bold)
     process.exit()

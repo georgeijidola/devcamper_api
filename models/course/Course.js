@@ -44,6 +44,12 @@ const CourseSchema = Schema(
       default: false,
     },
 
+    user: {
+      type: Schema.ObjectId,
+      ref: "User",
+      required: true,
+    },
+
     bootCamp: {
       type: Schema.ObjectId,
       ref: "BootCamp",
