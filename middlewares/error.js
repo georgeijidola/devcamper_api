@@ -14,16 +14,10 @@ const errorHandler = (error, req, res, next) => {
     case "ReferenceError":
     case "RangeError":
     case "TypeError":
-      message = `${error.name}`
+      message = `Server error: ${error.name}`
 
       formattedError = new ErrorResponse({ message, statusCode: 400 })
 
-      break
-
-    default:
-      message = `Server Error`
-
-      formattedError = new ErrorResponse({ message, statusCode: 500 })
       break
   }
 

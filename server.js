@@ -1,7 +1,9 @@
+const path = require("path")
 const express = require("express")
 const cors = require("cors")
-// const dotenv = require("dotenv")
+const fileUpload = require("express-fileupload")
 const morgan = require("morgan")
+
 const errorHandler = require("./middlewares/error")
 require("dotenv").config()
 require("colors")
@@ -22,6 +24,15 @@ const app = express()
 // Initialize middlewares
 app.use(cors())
 app.use(express.json())
+app.use(
+  fileUpload({
+    // useTempFiles: true,
+    preserveExtension: true,
+  })
+)
+
+// Set static folder
+app.use(express.static(path.join(__dirname, "public")))
 
 // Port Number
 const PORT = process.env.PORT || 6000

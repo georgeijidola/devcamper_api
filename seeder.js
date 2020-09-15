@@ -30,7 +30,7 @@ const courses = JSON.parse(fs.readFileSync("./_data/courses.json", "utf-8"))
 const importData = async () => {
   try {
     await BootCamp.create(bootCamps)
-    // await Course.create(courses)
+    await Course.create(courses)
 
     console.log(" Data imported... ".white.bgBrightGreen.bold)
     process.exit()
