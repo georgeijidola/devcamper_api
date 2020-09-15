@@ -18,6 +18,16 @@ const updateCourse = asyncHandler(async (req, res, next) => {
     )
   }
 
+  // Make sure user owns boot camp owner or is admin
+  if (course.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(
+      new ErrorResponse({
+        message: `User ${req.user.id} is unauthorized to update this course`,
+        statusCode: 401,
+      })
+    )
+  }
+
   course = await Course.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,

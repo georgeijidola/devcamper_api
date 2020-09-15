@@ -18,6 +18,16 @@ const deleteCourse = asyncHandler(async (req, res, next) => {
     )
   }
 
+  // Make sure user owns boot camp owner or is admin
+  if (course.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(
+      new ErrorResponse({
+        message: `User ${req.user.id} is unauthorized to delete this course`,
+        statusCode: 401,
+      })
+    )
+  }
+
   await course.remove()
 
   res.status(200).json({

@@ -18,6 +18,16 @@ const deleteBootCamp = asyncHandler(async (req, res, next) => {
     )
   }
 
+  // Make sure user owns boot camp owner or is admin
+  if (bootCamp.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(
+      new ErrorResponse({
+        message: `User ${req.user.id} is unauthorized to delete this boot camp`,
+        statusCode: 401,
+      })
+    )
+  }
+
   await bootCamp.remove()
 
   res.status(200).json({

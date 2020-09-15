@@ -18,6 +18,16 @@ const updateBootCamp = asyncHandler(async (req, res, next) => {
     )
   }
 
+  // Make sure user owns boot camp owner or is admin
+  if (bootCamp.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(
+      new ErrorResponse({
+        message: `User ${req.user.id} is unauthorized to update this boot camp`,
+        statusCode: 401,
+      })
+    )
+  }
+
   bootCamp = await BootCamp.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
