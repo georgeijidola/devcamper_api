@@ -1,10 +1,11 @@
 const fs = require("fs")
 const mongoose = require("mongoose")
-const colors = require("colors")
+// Colors
+require("colors")
 const dotenv = require("dotenv")
 
 // Load env variables
-dotenv.config()
+dotenv.config({ path: "./config/config.env" })
 
 // Load models
 const BootCamp = require("./models/bootCamp/BootCamp")

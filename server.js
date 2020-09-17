@@ -11,7 +11,8 @@ const hpp = require("hpp")
 const mongoSanitize = require("express-mongo-sanitize")
 
 const errorHandler = require("./middlewares/error")
-require("dotenv").config()
+// Load env vars
+require("dotenv").config({ path: "./config/config.env" })
 require("colors")
 
 // Route files
@@ -20,9 +21,6 @@ const courses = require("./routes/courses")
 const auth = require("./routes/auth")
 const user = require("./routes/users")
 const review = require("./routes/reviews")
-
-// Load env vars
-// dotenv.config({ path: "./config/config.env" })
 
 // Load db
 require("./config/db")()
@@ -75,6 +73,11 @@ const baseURL = "/api/v1/"
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"))
 }
+
+// Home
+app.get(`${baseURL}`, (req, res) => {
+  res.redirect("https://documenter.getpostman.com/view/4872797/TVKA4z4w")
+})
 
 // Mount routers
 app.use(`${baseURL}bootcamps`, bootcamps)
