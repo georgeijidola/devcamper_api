@@ -1,10 +1,10 @@
+// @desc    Get boot camps within a radius
+// @route   Get {baseUrl}bootcamps/radius?zipcode=2849&distance=30
+// @access  Public
+
 const asyncHandler = require("../../middlewares/async")
 const BootCamp = require("../../models/bootCamp/BootCamp")
 const geoCoder = require("../../utils/geoCoder")
-
-// @desc    Get boot camps within a radius
-// @route   Get {baseUrl}bootcamps/radius?zipcode=2849&distance=30
-// @access  Private
 
 const deleteBootCamp = asyncHandler(async (req, res, next) => {
   const { zipcode, distance } = req.query

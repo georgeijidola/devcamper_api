@@ -1,10 +1,10 @@
-const asyncHandler = require("../../middlewares/async")
-const User = require("../../models/user/User")
-const sendTokenResponse = require("../../utils/sendTokenResponse")
-
 // @desc    Register user
 // @route   Post {baseUrl}auth
 // @access  Public
+
+const asyncHandler = require("../../middlewares/async")
+const User = require("../../models/user/User")
+const sendTokenResponse = require("../../utils/sendTokenResponse")
 
 const register = asyncHandler(async (req, res, next) => {
   const { firstName, lastName, email, password, role } = req.body

@@ -4,15 +4,22 @@ const cors = require("cors")
 const fileUpload = require("express-fileupload")
 const cookieParser = require("cookie-parser")
 const morgan = require("morgan")
+const helmet = require("helmet")
+const xss = require("xss-clean")
+const rateLimit = require("express-rate-limit")
+const hpp = require("hpp")
+const mongoSanitize = require("express-mongo-sanitize")
 
 const errorHandler = require("./middlewares/error")
 require("dotenv").config()
 require("colors")
 
 // Route files
-const bootcamps = require("./routes/bootcamps")
+const bootcamps = require("./routes/bootCamps")
 const courses = require("./routes/courses")
 const auth = require("./routes/auth")
+const user = require("./routes/users")
+const review = require("./routes/reviews")
 
 // Load env vars
 // dotenv.config({ path: "./config/config.env" })
@@ -40,6 +47,25 @@ app.use(cookieParser())
 // Set static folder
 app.use(express.static(path.join(__dirname, "public")))
 
+// Sanitize data
+app.use(mongoSanitize())
+
+// Set security headers
+app.use(helmet())
+
+// Prevent XSS attacks
+app.use(xss())
+
+// Rate limit
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000, // 10 mins
+  max: 100,
+})
+app.use(limiter)
+
+// Prevent HTTP Param Pollution
+app.use(hpp())
+
 // Port Number
 const PORT = process.env.PORT || 6000
 
@@ -54,6 +80,8 @@ if (process.env.NODE_ENV === "development") {
 app.use(`${baseURL}bootcamps`, bootcamps)
 app.use(`${baseURL}courses`, courses)
 app.use(`${baseURL}auth`, auth)
+app.use(`${baseURL}users`, user)
+app.use(`${baseURL}reviews`, review)
 
 app.use(errorHandler)
 

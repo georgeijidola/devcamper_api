@@ -1,10 +1,10 @@
+// @desc    Delete BootCamp
+// @route   Post {baseUrl}bootcamps/:id
+// @access  Private
+
 const asyncHandler = require("../../middlewares/async")
 const BootCamp = require("../../models/bootCamp/BootCamp")
 const ErrorResponse = require("../../utils/errorResponse")
-
-// @desc    Delete BootCamp
-// @route   Post {baseUrl}bootcamps
-// @access  Private
 
 const deleteBootCamp = asyncHandler(async (req, res, next) => {
   const bootCamp = await BootCamp.findById(req.params.id)

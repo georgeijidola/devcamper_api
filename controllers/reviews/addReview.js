@@ -1,16 +1,14 @@
-// @desc    Create Course
-// @route   Post {baseUrl}bootcamps/:id/courses
+// @desc    Create Review
+// @route   Post {baseUrl}bootcamps/:id/reviews
 // @access  Private
 
 const asyncHandler = require("../../middlewares/async")
 const BootCamp = require("../../models/bootCamp/BootCamp")
-const Course = require("../../models/course/Course")
+const Review = require("../../models/review/Review")
 const ErrorResponse = require("../../utils/errorResponse")
 
-const createCourse = asyncHandler(async (req, res, next) => {
-  req.params.id ? (req.body.bootCamp = req.params.id) : req.body
-
-  const bootCamp = await BootCamp.findById(req.body.bootCamp)
+const addReview = asyncHandler(async (req, res, next) => {
+  const bootCamp = await BootCamp.findById(req.params.id)
 
   if (!bootCamp) {
     return next(
@@ -21,16 +19,17 @@ const createCourse = asyncHandler(async (req, res, next) => {
     )
   }
 
-  const course = await Course.create({
+  const review = await Review.create({
     user: req.user.id,
+    bootCamp: req.params.id,
     ...req.body,
   })
 
   res.status(201).json({
     error: false,
-    message: "Created Course.",
-    data: course,
+    message: "Created Review.",
+    data: review,
   })
 })
 
-module.exports = createCourse
+module.exports = addReview

@@ -1,10 +1,10 @@
+// @desc    Update BootCamp
+// @route   Post {baseUrl}bootcamps/:id
+// @access  Private
+
 const asyncHandler = require("../../middlewares/async")
 const BootCamp = require("../../models/bootCamp/BootCamp")
 const ErrorResponse = require("../../utils/errorResponse")
-
-// @desc    Update BootCamp
-// @route   Post {baseUrl}bootcamps
-// @access  Private
 
 const updateBootCamp = asyncHandler(async (req, res, next) => {
   let bootCamp = await BootCamp.findById(req.params.id)

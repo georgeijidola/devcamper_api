@@ -1,0 +1,1090 @@
+{
+	"info": {
+		"_postman_id": "98690d47-e2bc-4567-aee5-057cb0fc2a9d",
+		"name": "Dev Camper",
+		"description": "A Backend REST API for the Dev Camper application to manage bootcamps, courses, reviews, users and authentication.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Bootcamps",
+			"item": [
+				{
+					"name": "Get Boot Camps",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}bootcamps",
+							"host": [
+								"{{baseUrl}}bootcamps"
+							]
+						},
+						"description": "Fetch all bootcamps from database. Includes pagination, filtering, etc."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Boot Camps In Radius",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}bootcamps/radius?zipcode=02118&distance=5",
+							"host": [
+								"{{baseUrl}}bootcamps"
+							],
+							"path": [
+								"radius"
+							],
+							"query": [
+								{
+									"key": "zipcode",
+									"value": "02118"
+								},
+								{
+									"key": "distance",
+									"value": "5"
+								}
+							]
+						},
+						"description": "Fetch all bootcamps from database in a zipcode radius. Includes pagination, filtering, etc."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Boot Camp",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}bootcamps/5d713a66ec8f2b88b8f830b8",
+							"host": [
+								"{{baseUrl}}bootcamps"
+							],
+							"path": [
+								"5d713a66ec8f2b88b8f830b8"
+							]
+						},
+						"description": "Get single bootcamp by ID."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Boot Camp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Axiabit\",\r\n    \"description\": \"Devworks is a full stack JavaScript Bootcamp located in the heart of Boston that focuses on the technologies you need to get a high paying job as a web developer\",\r\n    \"website\": \"https://devworks.com\",\r\n    \"phone\": \"(111) 111-1111\",\r\n    \"email\": \"enroll@devworks.com\",\r\n    \"address\": \"233 Bay State Rd Boston MA 02215\",\r\n    \"careers\": [\"Web Development\", \"UI/UX\", \"Business\"],\r\n    \"housing\": true,\r\n    \"jobAssistance\": true,\r\n    \"jobGuarantee\": false,\r\n    \"acceptGi\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}bootcamps",
+							"host": [
+								"{{baseUrl}}bootcamps"
+							]
+						},
+						"description": "Add new bootcamp to database. Requires authentication and must be a publisher."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Boot Camp",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"housing\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}bootcamps/5f5b90b066f3464348c0f647",
+							"host": [
+								"{{baseUrl}}bootcamps"
+							],
+							"path": [
+								"5f5b90b066f3464348c0f647"
+							]
+						},
+						"description": "Update Bootcamp by ID. Requires authentication and must be owner."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Boot Camp Photo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/SBSC-DEV/Desktop/logo.png"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}bootcamps/5d713995b721c3bb38c1f5d0/photo",
+							"host": [
+								"{{baseUrl}}bootcamps"
+							],
+							"path": [
+								"5d713995b721c3bb38c1f5d0",
+								"photo"
+							]
+						},
+						"description": "Upload Bootcamp Photo by ID. Requires authentication and must be owner."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Boot Camp",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}bootcamps/5d725a1b7b292f5f8ceff788",
+							"host": [
+								"{{baseUrl}}bootcamps"
+							],
+							"path": [
+								"5d725a1b7b292f5f8ceff788"
+							]
+						},
+						"description": "Delete Bootcamp by ID. Requires authentication and must be owner or admin."
+					},
+					"response": []
+				}
+			],
+			"description": "Bootcamps CRUD Functionality",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9f544e0b-a321-4b9c-9a66-d16831a1e48b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "623afc0b-f79b-43a0-813a-b845a5a05bca",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Courses",
+			"item": [
+				{
+					"name": "Get Courses",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}courses?bootCamp=5d713995b721c3bb38c1f5d0",
+							"host": [
+								"{{baseUrl}}courses"
+							],
+							"query": [
+								{
+									"key": "bootCamp",
+									"value": "5d713995b721c3bb38c1f5d0"
+								}
+							]
+						},
+						"description": "Fetch all courses from database. Includes pagination, filtering, etc."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Boot Camp's Courses",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}bootcamps/5d713a66ec8f2b88b8f830b8/courses",
+							"host": [
+								"{{baseUrl}}bootcamps"
+							],
+							"path": [
+								"5d713a66ec8f2b88b8f830b8",
+								"courses"
+							]
+						},
+						"description": "Fetch all bootcamp's courses. Includes pagination, filtering, etc."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Course",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}courses/5f5f33c8432aec247c950673",
+							"host": [
+								"{{baseUrl}}courses"
+							],
+							"path": [
+								"5f5f33c8432aec247c950673"
+							]
+						},
+						"description": "Get single course by ID."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Course",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Node API MasterClass\",\r\n    \"description\": \"In this course you will learn all about the front end with HTML, CSS and JavaScript. You will master tools like Git and Webpack and also learn C# and ASP.NET with Postgres\",\r\n    \"weeks\": 10,\r\n    \"tuition\": 12000,\r\n    \"minimumSkill\": \"intermediate\",\r\n    \"scholarhipsAvailable\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}bootcamps/5f60f912ee9bdf383c583d1b/courses",
+							"host": [
+								"{{baseUrl}}bootcamps"
+							],
+							"path": [
+								"5f60f912ee9bdf383c583d1b",
+								"courses"
+							]
+						},
+						"description": "Add new course to database. Requires authentication and must be a publisher."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Course By Bootcamp Id",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Node API MasterClass by Brad Traversy\",\r\n    \"description\": \"In this course you will learn all about the front end with HTML, CSS and JavaScript. You will master tools like Git and Webpack and also learn C# and ASP.NET with Postgres\",\r\n    \"weeks\": 10,\r\n    \"tuition\": 14000,\r\n    \"minimumSkill\": \"intermediate\",\r\n    \"scholarhipsAvailable\": true,\r\n    \"bootCamp\": \"5d713a66ec8f2b88b8f830b8\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}courses",
+							"host": [
+								"{{baseUrl}}courses"
+							]
+						},
+						"description": "Add new course to database by Bootcamp id in the url parameters. Requires authentication and must be a publisher."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Course",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"NodeJS API MasterClass\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}courses/5f5f577f250bf13240e94824",
+							"host": [
+								"{{baseUrl}}courses"
+							],
+							"path": [
+								"5f5f577f250bf13240e94824"
+							]
+						},
+						"description": "Update Course by ID. Requires authentication and must be owner or admin."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Course",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}courses/5f5f63ed30ef003540973c76",
+							"host": [
+								"{{baseUrl}}courses"
+							],
+							"path": [
+								"5f5f63ed30ef003540973c76"
+							]
+						},
+						"description": "Delete Course by ID. Requires authentication and must be owner or admin."
+					},
+					"response": []
+				}
+			],
+			"description": "Courses CRUD Functionality",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "78b3dc0c-a1cb-4972-9800-349e66e5edee",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2c54bfa0-6a5c-43fb-a5f7-f006ffdea8eb",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "Get All Reviews",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}reviews",
+							"host": [
+								"{{baseUrl}}reviews"
+							]
+						},
+						"description": "Get all reviews from database and populate boot camp's name and description. Includes pagination, filtering, etc."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Boot Camp's Reviews",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}bootcamps/5d725a1b7b292f5f8ceff788/reviews",
+							"host": [
+								"{{baseUrl}}bootcamps"
+							],
+							"path": [
+								"5d725a1b7b292f5f8ceff788",
+								"reviews"
+							]
+						},
+						"description": "Fetch all bootcamp's reviews. Includes pagination, filtering, etc."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Review",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}reviews/5d7a514b5d2c12c7449be024",
+							"host": [
+								"{{baseUrl}}reviews"
+							],
+							"path": [
+								"5d7a514b5d2c12c7449be024"
+							]
+						},
+						"description": "Get single review by ID."
+					},
+					"response": []
+				},
+				{
+					"name": "Add Review By Bootcamp Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Great!\",\r\n    \"body\": \"Fun!\",\r\n    \"rating\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}bootcamps/5f633b768efef368646d1e27/reviews",
+							"host": [
+								"{{baseUrl}}bootcamps"
+							],
+							"path": [
+								"5f633b768efef368646d1e27",
+								"reviews"
+							]
+						},
+						"description": "Add new review to database by Bootcamp id in the url parameters. Requires authentication and must be user or admin."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Real good\",\r\n    \"body\": \"Fantastic!\",\r\n    \"rating\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}reviews/5f633ba98efef368646d1e28",
+							"host": [
+								"{{baseUrl}}reviews"
+							],
+							"path": [
+								"5f633ba98efef368646d1e28"
+							]
+						},
+						"description": "Update Review by ID. Requires authentication and must be owner or admin\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}reviews/5f633ba98efef368646d1e28",
+							"host": [
+								"{{baseUrl}}reviews"
+							],
+							"path": [
+								"5f633ba98efef368646d1e28"
+							]
+						},
+						"description": "Delete Review by ID. Requires authentication and must be owner or admin."
+					},
+					"response": []
+				}
+			],
+			"description": "Manage boot camp reviews",
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2ac73e7b-61a9-44b1-97dd-0bcb5c60c5c2",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ab65245c-a936-471e-8127-fe0ccdebebf1",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Update User By ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"George\",\r\n    \"lastName\": \"Seyi\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}user/5f6257b789ccf108a4debcf7",
+							"host": [
+								"{{baseUrl}}user"
+							],
+							"path": [
+								"5f6257b789ccf108a4debcf7"
+							]
+						},
+						"description": "Update User by ID. Requires authentication and must be admin."
+					},
+					"response": []
+				},
+				{
+					"name": "Update User ",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"George\",\r\n    \"lastName\": \"Ijidola\",\r\n    \"email\": \"geordola@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}user",
+							"host": [
+								"{{baseUrl}}user"
+							]
+						},
+						"description": "Update User. Requires authentication and must be owner."
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Password",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentPassword\": \"123456\",\r\n    \"newPassword\": \"1234567\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}user/password",
+							"host": [
+								"{{baseUrl}}user"
+							],
+							"path": [
+								"password"
+							]
+						},
+						"description": "Update User Password. Requires authentication and must be owner."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}courses/5f5f63ed30ef003540973c76",
+							"host": [
+								"{{baseUrl}}courses"
+							],
+							"path": [
+								"5f5f63ed30ef003540973c76"
+							]
+						},
+						"description": "Delete Course by ID. Requires authentication and must be owner or admin."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}user",
+							"host": [
+								"{{baseUrl}}user"
+							]
+						},
+						"description": "Fetch all users from database. Includes pagination, filtering, etc."
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "27134ace-bf35-49f6-8f34-21514ab956e9",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Admin\",\r\n    \"lastName\": \"Account\",\r\n    \"email\": \"amosgodwin50@gmail.com\",\r\n    \"role\": \"publisher\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}users",
+							"host": [
+								"{{baseUrl}}users"
+							]
+						},
+						"description": "Add new user to database. Requires authentication and must be admin."
+					},
+					"response": []
+				}
+			],
+			"description": "User CRUD Functionality",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f21fa64e-50cb-4cba-b8d6-fe3b1e0e9089",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "16f270f8-d652-4f55-a621-0e04bc111cc3",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0fdf328d-170f-4cdc-b8dc-af42272bfb67",
+								"exec": [
+									"pm.environment.set(\"TOKEN\", pm.response.json().token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Admin\",\r\n    \"lastName\": \"Account\",\r\n    \"email\": \"writtenofmee@gmail.com\",\r\n    \"role\": \"user\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}auth",
+							"host": [
+								"{{baseUrl}}auth"
+							]
+						},
+						"description": "Register user to database."
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cf232b6f-4493-4736-831b-5c09d603282b",
+								"exec": [
+									"pm.environment.set(\"TOKEN\", pm.response.json().token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"geordola@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}auth/login",
+							"host": [
+								"{{baseUrl}}auth"
+							],
+							"path": [
+								"login"
+							]
+						},
+						"description": "Login user to the application."
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "104f5bf8-4c53-48dd-b076-4ad99abb8542",
+								"exec": [
+									"pm.environment.set(\"TOKEN\", pm.response.json().token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}auth/logout",
+							"host": [
+								"{{baseUrl}}auth"
+							],
+							"path": [
+								"logout"
+							]
+						},
+						"description": "Log out user."
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4d360bab-b56f-4edf-8eef-190a197a5a1d",
+								"exec": [
+									"pm.environment.set(\"TOKEN\", pm.response.json().token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"geordola@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}auth/forgot-password",
+							"host": [
+								"{{baseUrl}}auth"
+							],
+							"path": [
+								"forgot-password"
+							]
+						},
+						"description": "Generate password token and send to email."
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8f8bac4-c513-4e64-ade6-7186f4d6154a",
+								"exec": [
+									"pm.environment.set(\"TOKEN\", pm.response.json().token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"1234567\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}auth/reset-password/f68517bf12bced80b2422d8c846485b5bf7a504c",
+							"host": [
+								"{{baseUrl}}auth"
+							],
+							"path": [
+								"reset-password",
+								"f68517bf12bced80b2422d8c846485b5bf7a504c"
+							]
+						},
+						"description": "Reset password from email link."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Logged In User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}auth",
+							"host": [
+								"{{baseUrl}}auth"
+							]
+						},
+						"description": "Get Logged In User via Token"
+					},
+					"response": []
+				}
+			],
+			"description": "Authentication: Register, Login and Reset Password",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "44673388-c283-4fc3-b5f5-35633a2aa4f9",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b658d0b4-0352-4205-ac39-3aaa1c188229",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "18ba70a3-0dc1-4f4c-a656-4149b2830345",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "4413a23c-354d-4079-8300-480020c6b6b9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

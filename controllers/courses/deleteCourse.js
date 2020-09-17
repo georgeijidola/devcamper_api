@@ -1,10 +1,10 @@
+// @desc    Delete Course
+// @route   Post {baseUrl}courses/:id
+// @access  Private
+
 const asyncHandler = require("../../middlewares/async")
 const Course = require("../../models/course/Course")
 const ErrorResponse = require("../../utils/errorResponse")
-
-// @desc    Delete Course
-// @route   Post {baseUrl}courses
-// @access  Private
 
 const deleteCourse = asyncHandler(async (req, res, next) => {
   const course = await Course.findById(req.params.id)

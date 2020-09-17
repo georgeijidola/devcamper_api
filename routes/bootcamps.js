@@ -12,7 +12,8 @@ const deleteBootCamp = require("../controllers/bootcamps/deleteBootCamp")
 const bootCampPhotoUpload = require("../controllers/bootcamps/bootCampPhotoUpload")
 
 // Include other resource routers
-const courseRouter = require("./courses")
+const coursesRouter = require("./courses")
+const reviewsRouter = require("./reviews")
 
 const results = require("../middlewares/results")
 const BootCamp = require("../models/bootCamp/BootCamp")
@@ -20,7 +21,8 @@ const BootCamp = require("../models/bootCamp/BootCamp")
 const protect = require("../middlewares/auth/protect")
 const role = require("../middlewares/auth/role")
 
-router.use("/:id/courses", courseRouter)
+router.use("/:id/courses", coursesRouter)
+router.use("/:id/reviews", reviewsRouter)
 
 router
   .route("/")

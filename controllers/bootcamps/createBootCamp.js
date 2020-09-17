@@ -1,10 +1,10 @@
-const asyncHandler = require("../../middlewares/async")
-const BootCamp = require("../../models/bootCamp/BootCamp")
-const ErrorResponse = require("../../utils/errorResponse")
-
 // @desc    Create BootCamp
 // @route   Post {baseUrl}bootcamps
 // @access  Private
+
+const asyncHandler = require("../../middlewares/async")
+const BootCamp = require("../../models/bootCamp/BootCamp")
+const ErrorResponse = require("../../utils/errorResponse")
 
 const createBootCamp = asyncHandler(async (req, res, next) => {
   const publishedBootCamp = await BootCamp.findOne({ user: req.user.id })

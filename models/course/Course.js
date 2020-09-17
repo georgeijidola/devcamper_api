@@ -1,8 +1,6 @@
 /** @format */
 
 const { Schema, model } = require("mongoose")
-const slugify = require("slugify")
-const geoCoder = require("../../utils/geoCoder")
 
 const CourseSchema = Schema(
   {
@@ -10,7 +8,7 @@ const CourseSchema = Schema(
       type: String,
       required: [true, "Please add a course title."],
       trim: true,
-      maxlength: ["50", "Name cannot be more than 50 characters"],
+      maxlength: ["50", "Title cannot be more than 50 characters"],
     },
 
     description: {
@@ -73,7 +71,7 @@ const CourseSchema = Schema(
 )
 
 // Static method to get average of course tuitions
-CourseSchema.statics.getAverageConst = async function (bootCampId) {
+CourseSchema.statics.getAverageCost = async function (bootCampId) {
   const object = await this.aggregate([
     { $match: { bootCamp: bootCampId } },
     {
@@ -88,17 +86,19 @@ CourseSchema.statics.getAverageConst = async function (bootCampId) {
     await this.model("BootCamp").findByIdAndUpdate(bootCampId, {
       averageCost: Math.ceil(object[0].averageCost / 10) * 10,
     })
-  } catch (error) {}
+  } catch (error) {
+    console.trace(error.stack)
+  }
 }
 
-// Call getAverageCode after save
+// Call getAverageCost after save
 CourseSchema.post("save", function () {
-  this.constructor.getAverageConst(this.bootCamp)
+  this.constructor.getAverageCost(this.bootCamp)
 })
 
-// Call getAverageCode after save
+// Call getAverageCost after save
 CourseSchema.pre("remove", function () {
-  this.constructor.getAverageConst(this.bootCamp)
+  this.constructor.getAverageCost(this.bootCamp)
 })
 
 module.exports = model("Course", CourseSchema)

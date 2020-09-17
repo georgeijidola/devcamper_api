@@ -24,7 +24,7 @@
 - node-geocoder - https://github.com/nchaulet/node-geocoder
 - bcryptjs - https://github.com/dcodeIO/bcrypt.js#readme
 - jsonwebtoken - https://github.com/auth0/node-jsonwebtoken
-- nodemailer - https://nodemailer.com/about/
+- sendgrid - https://sendgrid.com/
 - express-mongo-sanitize - https://github.com/fiznool/express-mongo-sanitize#readme
 - xss-clean - https://github.com/jsonmaur/xss-clean
 - helmet - https://github.com/helmetjs/helmet
@@ -35,8 +35,7 @@
 
 ## Other Info
 
-- Deployment Gist - https://gist.github.com/bradtraversy/cd90d1ed3c462fe3bddd11bf8953a896
-- Digital Ocean Website ($10 Referral Link) - https://m.do.co/c/5424d440c63a
+- Digital Ocean Website (\$10 Referral Link) - https://m.do.co/c/5424d440c63a
 - SSH Key Setup - https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2
 - HTTP Status Codes - https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 - HTTP Request Methods - https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
@@ -64,4 +63,3 @@
 - Relationships & Populate - https://mongoosejs.com/docs/populate.html
 - Virtuals - https://mongoosejs.com/docs/guide.html#virtuals
 - Statics - https://mongoosejs.com/docs/guide.html#statics
-

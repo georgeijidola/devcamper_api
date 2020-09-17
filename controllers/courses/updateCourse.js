@@ -1,10 +1,10 @@
+// @desc    Update Course
+// @route   Post {baseUrl}courses/:id
+// @access  Private
+
 const asyncHandler = require("../../middlewares/async")
 const Course = require("../../models/course/Course")
 const ErrorResponse = require("../../utils/errorResponse")
-
-// @desc    Update Course
-// @route   Post {baseUrl}courses
-// @access  Private
 
 const updateCourse = asyncHandler(async (req, res, next) => {
   let course = await Course.findById(req.params.id)
@@ -35,7 +35,7 @@ const updateCourse = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     error: false,
-    message: "Updated Bootcamp.",
+    message: "Updated Course.",
     data: course,
   })
 })

@@ -9,7 +9,7 @@ const role = (...roles) =>
     if (!roles.includes(req.user.role)) {
       return next(
         new ErrorResponse({
-          message: `User role ${req.user.role} is unauthorized to access this route`,
+          message: `User role '${req.user.role}' is unauthorized to access this route`,
           statusCode: 403,
         })
       )

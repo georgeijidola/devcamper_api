@@ -8,17 +8,18 @@ const register = require("../controllers/auth/register")
 const login = require("../controllers/auth/login")
 const getLoggedInUser = require("../controllers/auth/getLoggedInUser")
 const protect = require("../middlewares/auth/protect")
-
-// Include other resource routers
-// const courseRouter = require("./courses")
-
-// const results = require("../middlewares/results")
-// const BootCamp = require("../models/bootCamp/BootCamp")
-
-// router.use("/:id/courses", courseRouter)
+const forgotPassword = require("../controllers/auth/forgotPassword")
+const resetPassword = require("../controllers/auth/resetPassword")
+const logout = require("../controllers/auth/logout")
 
 router.route("/").post(register).get(protect, getLoggedInUser)
 
-router.route("/login").post(login)
+router.post("/login", login)
+
+router.post("/forgot-password", forgotPassword)
+
+router.put("/reset-password/:resetToken", resetPassword)
+
+router.post("/logout", protect, logout)
 
 module.exports = router
